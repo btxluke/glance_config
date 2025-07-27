@@ -104,9 +104,9 @@
 
             <div class="flex justify-between">
               <div class="size-h5">
-                {{ if le $aqi 50 }}
+                {{ if le $aqi "050" }}
                   <div class="color-positive">Good air quality</div>
-                {{ else if le $aqi 100 }}
+                {{ else if le $aqi "100" }}
                   <div class="color-primary">Moderate air quality</div>
                 {{ else }}
                   <div class="color-negative">Bad air quality</div>
