@@ -70,18 +70,6 @@
           hour-format: 24h
           cache: 5m
 
-        - type: markets
-          cache: 5m
-          markets:
-            - symbol: BTC-GBP
-              name: Bitcoin
-            - symbol: ETH-GBP
-              name: Ether
-            - symbol: XRP-GBP
-              name: XRP
-            - symbol: ALGO-GBP
-              name: Algorand
-
         # - type: dns-stats
         #   cache: 5m
         #   service: pihole-v6
@@ -141,3 +129,16 @@
                 <div class="size-h6" style="margin-top: 10px;">Last Updated at {{ slice $updated 11 16 }}</div>
               {{ end }}
             </div>
+
+                - type: markets
+                  cache: 5m
+                  markets:
+                    - symbol: BTC-GBP
+                      name: Bitcoin
+                    - symbol: ETH-GBP
+                      name: Ether
+                    - symbol: XRP-GBP
+                      name: XRP
+                    - symbol: ALGO-GBP
+                      name: Algorand
+
