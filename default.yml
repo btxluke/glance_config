@@ -1,5 +1,4 @@
 - name: Home
-  # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
   hide-desktop-navigation: true
   columns:
     - size: small
@@ -25,8 +24,8 @@
                   url: http://gatewaybot:81
                 - title: FritzBox
                   url: http://fritz.box
-                #- title: PiHole
-                #  url: http://192.168.178.55/admin/
+                # - title: PiHole
+                #   url: http://192.168.178.55/admin/
                 - title: Home Assistant
                   url: http://homeassistant.fritz.box:8123/
                 - title: OpenMediaVault
@@ -40,19 +39,19 @@
       widgets:
         - type: search
           search-engine: google
-          #bangs:
-           # - title: Gravitai
-           #   shortcut: "!gt"
-           #   url: https://gravitai.com/web
+          # bangs:
+          #   - title: Gravitai
+          #     shortcut: "!gt"
+          #     url: https://gravitai.com/web
 
         - type: videos
           cache: 5m
           channels:
             - UCzR-rom72PHN9Zg7RML9EbA # PBS Eons
             - UCDvcavTI2xgfXZdF9MaPKIQ # Time Team
-            #- UCsBjURrPoezykLs9EqgamOA # Fireship
-            #- UCBJycsmduvYEL83R_U4JriQ # Marques Brownlee
-            #- UCHnyfMqiRRG1u-2MsSQLbXA # Veritasium
+            # - UCsBjURrPoezykLs9EqgamOA # Fireship
+            # - UCBJycsmduvYEL83R_U4JriQ # Marques Brownlee
+            # - UCHnyfMqiRRG1u-2MsSQLbXA # Veritasium
 
         - type: rss
           limit: 10
@@ -60,21 +59,16 @@
           cache: 5m
           style: detailed-list
           feeds:
-            - url:  http://feeds.bbci.co.uk/news/rss.xml
+            - url: http://feeds.bbci.co.uk/news/rss.xml
               title: BBC News (UK)
-
-
-
 
     - size: small
       widgets:
         - type: weather
           location: Dunfermline, United Kingdom
-          units: metric # alternatively "imperial"
-          hour-format: 24h # alternatively "24h"
+          units: metric
+          hour-format: 24h
           cache: 5m
-          # Optionally hide the location from being displayed in the widget
-          # hide-location: true
 
         - type: markets
           cache: 5m
@@ -88,66 +82,62 @@
             - symbol: ALGO-GBP
               name: Algorand
 
-        
-        #- type: dns-stats
-          #cache: 5m
-          #service: pihole-v6
-          #url: http://192.168.178.55/
-          #username: pi.hole
-          #password: _vXeKiO-
-        
-- type: custom-api
-  title: Air Quality
-  cache: 10m
-  url: https://api.waqi.info/feed/geo:56.058164;-3.445777/?token=9d0628dbaefe748cf541eaadddf6f71902dc74e1
-  template: |
-    {{ $aqi := printf "%03s" (.JSON.String "data.aqi") }}
-    {{ $aqiraw := .JSON.String "data.aqi" }}
-    {{ $updated := .JSON.String "data.time.iso" }}
-    {{ $humidity := .JSON.String "data.iaqi.h.v" }}
-    {{ $ozone := .JSON.String "data.iaqi.o3.v" }}
-    {{ $pm25 := .JSON.String "data.iaqi.pm25.v" }}
-    {{ $pressure := .JSON.String "data.iaqi.p.v" }}
+        # - type: dns-stats
+        #   cache: 5m
+        #   service: pihole-v6
+        #   url: http://192.168.178.55/
+        #   username: pi.hole
+        #   password: _vXeKiO-
 
-    <div class="flex justify-between">
-      <div class="size-h5">
-        {{ if le $aqi "050" }}
-          <div class="color-positive">Good air quality</div>
-        {{ else if le $aqi "100" }}
-          <div class="color-primary">Moderate air quality</div>
-        {{ else }}
-          <div class="color-negative">Bad air quality</div>
-        {{ end }}
-      </div>
-    </div>
+        - type: custom-api
+          title: Air Quality
+          cache: 10m
+          url: https://api.waqi.info/feed/geo:56.058164;-3.445777/?token=9d0628dbaefe748cf541eaadddf6f71902dc74e1
+          template: |
+            {{ $aqiraw := or (.JSON.String "data.aqi") "0" }}
+            {{ $aqi := atoi $aqiraw }}
+            {{ $updated := or (.JSON.String "data.time.iso") "" }}
+            {{ $humidity := or (.JSON.String "data.iaqi.h.v") "N/A" }}
+            {{ $ozone := or (.JSON.String "data.iaqi.o3.v") "N/A" }}
+            {{ $pm25 := or (.JSON.String "data.iaqi.pm25.v") "N/A" }}
+            {{ $pressure := or (.JSON.String "data.iaqi.p.v") "N/A" }}
 
-    <div class="color-highlight size-h2">AQI: {{ $aqiraw }}</div>
-    <div style="border-bottom: 1px solid; margin-block: 10px;"></div>
+            <div class="flex justify-between">
+              <div class="size-h5">
+                {{ if le $aqi 50 }}
+                  <div class="color-positive">Good air quality</div>
+                {{ else if le $aqi 100 }}
+                  <div class="color-primary">Moderate air quality</div>
+                {{ else }}
+                  <div class="color-negative">Bad air quality</div>
+                {{ end }}
+              </div>
+            </div>
 
-    <div class="margin-block-2">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div class="color-highlight size-h2">AQI: {{ $aqiraw }}</div>
+            <div style="border-bottom: 1px solid; margin-block: 10px;"></div>
 
-        <div>
-          <div class="size-h3 color-highlight">{{ $humidity }}%</div>
-          <div class="size-h6">HUMIDITY</div>
-        </div>
+            <div class="margin-block-2">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div>
+                  <div class="size-h3 color-highlight">{{ $humidity }}%</div>
+                  <div class="size-h6">HUMIDITY</div>
+                </div>
+                <div>
+                  <div class="size-h3 color-highlight">{{ $ozone }} μg/m³</div>
+                  <div class="size-h6">OZONE</div>
+                </div>
+                <div>
+                  <div class="size-h3 color-highlight">{{ $pm25 }} μg/m³</div>
+                  <div class="size-h6">PM2.5</div>
+                </div>
+                <div>
+                  <div class="size-h3 color-highlight">{{ $pressure }} hPa</div>
+                  <div class="size-h6">PRESSURE</div>
+                </div>
+              </div>
 
-        <div>
-          <div class="size-h3 color-highlight">{{ $ozone }} μg/m³</div>
-          <div class="size-h6">OZONE</div>
-        </div>
-
-        <div>
-          <div class="size-h3 color-highlight">{{ $pm25 }} μg/m³</div>
-          <div class="size-h6">PM2.5</div>
-        </div>
-
-        <div>
-          <div class="size-h3 color-highlight">{{ $pressure }} hPa</div>
-          <div class="size-h6">PRESSURE</div>
-        </div>
-
-      </div>
-
-      <div class="size-h6" style="margin-top: 10px;">Last Updated at {{ slice $updated 11 16 }}</div>
-    </div>
+              {{ if ge (len $updated) 16 }}
+                <div class="size-h6" style="margin-top: 10px;">Last Updated at {{ slice $updated 11 16 }}</div>
+              {{ end }}
+            </div>
