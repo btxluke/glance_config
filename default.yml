@@ -98,7 +98,7 @@
         - type: custom-api
           title: Air Quality
           cache: 10m
-          url: https://api.waqi.info/feed/geo:56.058164;-3.445777/?token=${9d0628dbaefe748cf541eaadddf6f71902dc74e1}
+          url: https://api.waqi.info/feed/geo:56.058164;-3.445777/?token=9d0628dbaefe748cf541eaadddf6f71902dc74e1
           template: |
             {{ $aqi := printf "%03s" (.JSON.String "data.aqi") }}
             {{ $aqiraw := .JSON.String "data.aqi" }}
