@@ -101,13 +101,13 @@
           cache: 10m
           url: https://api.waqi.info/feed/geo:56.058164;-3.445777/?token=9d0628dbaefe748cf541eaadddf6f71902dc74e1
           template: |
-            {{ $aqiraw := .JSON.String "data.aqi" }}
+            {{ $aqiraw := or (.JSON.String "data.aqi") "0" }}
 {{ $aqi := atoi $aqiraw }}
-{{ $updated := .JSON.String "data.time.iso" }}
-{{ $humidity := .JSON.String "data.iaqi.h.v" }}
-{{ $ozone := .JSON.String "data.iaqi.o3.v" }}
-{{ $pm25 := .JSON.String "data.iaqi.pm25.v" }}
-{{ $pressure := .JSON.String "data.iaqi.p.v" }}
+{{ $updated := or (.JSON.String "data.time.iso") "" }}
+{{ $humidity := or (.JSON.String "data.iaqi.h.v") "N/A" }}
+{{ $ozone := or (.JSON.String "data.iaqi.o3.v") "N/A" }}
+{{ $pm25 := or (.JSON.String "data.iaqi.pm25.v") "N/A" }}
+{{ $pressure := or (.JSON.String "data.iaqi.p.v") "N/A" }}
 
 <div class="flex justify-between">
   <div class="size-h5">
