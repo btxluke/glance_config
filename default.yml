@@ -25,8 +25,8 @@
                   url: http://gatewaybot:81
                 - title: FritzBox
                   url: http://fritz.box
-                - title: PiHole
-                  url: http://192.168.178.55/admin/
+                #- title: PiHole
+                #  url: http://192.168.178.55/admin/
                 - title: Home Assistant
                   url: http://homeassistant.fritz.box:8123/
                 - title: OpenMediaVault
@@ -88,9 +88,10 @@
             - symbol: ALGO-GBP
               name: Algorand
 
-        - type: dns-stats
-          cache: 5m
-          service: pihole-v6
-          url: http://192.168.178.55/
-          username: pi.hole
-          password: _vXeKiO-
+        
+        #- type: dns-stats
+          #cache: 5m
+          #service: pihole-v6
+          #url: http://192.168.178.55/
+          #username: pi.hole
+          #password: _vXeKiO-
