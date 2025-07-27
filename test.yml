@@ -1,0 +1,8 @@
+name: Test Page
+columns:
+  - size: full
+    glances:
+      - name: Static Test
+        type: status
+        status: green
+        description: "This is a test from test.yml"

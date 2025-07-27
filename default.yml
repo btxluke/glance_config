@@ -1,0 +1,96 @@
+- name: Home
+  # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
+  hide-desktop-navigation: true
+  columns:
+    - size: small
+      widgets:
+        - type: calendar
+          first-day-of-week: monday
+
+        - type: clock
+          hour-format: 24h
+          timezones:
+            - timezone: Europe/Paris
+              label: Scandiano
+
+        - type: bookmarks
+          groups:
+            - title: Work
+              links:
+                - title: Gravitai
+                  url: https://www.gravitai.com/web
+            - title: Local Services
+              links:
+                - title: GatewayBot
+                  url: http://gatewaybot:81
+                - title: FritzBox
+                  url: http://fritz.box
+                - title: PiHole
+                  url: http://192.168.178.55/admin/
+                - title: Home Assistant
+                  url: http://homeassistant.fritz.box:8123/
+                - title: OpenMediaVault
+                  url: http://pi5-1.local
+                - title: GraphBot
+                  url: http://graphbot.local
+                - title: PDF Editor
+                  url: http://pi5-3.local:8080
+
+    - size: full
+      widgets:
+        - type: search
+          search-engine: google
+          #bangs:
+           # - title: Gravitai
+           #   shortcut: "!gt"
+           #   url: https://gravitai.com/web
+
+        - type: videos
+          cache: 5m
+          channels:
+            - UCzR-rom72PHN9Zg7RML9EbA # PBS Eons
+            - UCDvcavTI2xgfXZdF9MaPKIQ # Time Team
+            #- UCsBjURrPoezykLs9EqgamOA # Fireship
+            #- UCBJycsmduvYEL83R_U4JriQ # Marques Brownlee
+            #- UCHnyfMqiRRG1u-2MsSQLbXA # Veritasium
+
+        - type: rss
+          limit: 10
+          collapse-after: 3
+          cache: 5m
+          style: detailed-list
+          feeds:
+            - url:  http://feeds.bbci.co.uk/news/rss.xml
+              title: BBC News (UK)
+
+
+
+
+    - size: small
+      widgets:
+        - type: weather
+          location: Dunfermline, United Kingdom
+          units: metric # alternatively "imperial"
+          hour-format: 24h # alternatively "24h"
+          cache: 5m
+          # Optionally hide the location from being displayed in the widget
+          # hide-location: true
+
+        - type: markets
+          cache: 5m
+          markets:
+            - symbol: BTC-GBP
+              name: Bitcoin
+            - symbol: ETH-GBP
+              name: Ether
+            - symbol: XRP-GBP
+              name: XRP
+            - symbol: ALGO-GBP
+              name: Algorand
+
+        - type: dns-stats
+          cache: 5m
+          service: pihole-v6
+          url: http://192.168.178.55/
+          username: pi.hole
+          password: _vXeKiO-

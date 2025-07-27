@@ -1,0 +1,46 @@
+- name: Luke's Dashboard
+  columns:
+    - size: full
+      widgets:
+        - name: Static Test
+          type: status
+          status: green
+          description: "This is a working static glance."
+
+        - name: Outlook Calendar
+          type: outlook
+          calendar: "primary"
+          view: agenda
+          limit: 5
+          token: ${OUTLOOK_TOKEN}
+
+        - name: GitHub PRs – Team Updates
+          type: github
+          org: gravitai
+          team: core-devs
+          filter: is:pr is:open
+          display: table
+          token: ${GITHUB_TOKEN}
+
+        - name: Odoo – My Tasks
+          type: odoo
+          domain: https://gravitai.odoo.com
+          model: project.task
+          filter: "[('user_id','=',me), ('stage_id.name','!=','Done')]"
+          fields:
+            - name
+            - project_id
+            - date_deadline
+          token: ${ODOO_API_KEY}
+
+        - name: Bookmarks
+          type: bookmarks
+          links:
+            - label: "Gravitai SharePoint"
+              url: "https://gravitai.sharepoint.com/"
+            - label: "Odoo Portal"
+              url: "https://gravitai.odoo.com/web"
+            - label: "Jira Board"
+              url: "https://gravitai.atlassian.net/boards/42"
+            - label: "Slack"
+              url: "https://gravitai.slack.com"
