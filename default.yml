@@ -95,6 +95,7 @@
           #url: http://192.168.178.55/
           #username: pi.hole
           #password: _vXeKiO-
+        
         - type: custom-api
           title: Air Quality
           cache: 10m
