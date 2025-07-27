@@ -130,15 +130,15 @@
               {{ end }}
             </div>
 
-                - type: markets
-                  cache: 5m
-                  markets:
-                    - symbol: BTC-GBP
-                      name: Bitcoin
-                    - symbol: ETH-GBP
-                      name: Ether
-                    - symbol: XRP-GBP
-                      name: XRP
-                    - symbol: ALGO-GBP
-                      name: Algorand
+        - type: markets
+          cache: 5m
+          markets:
+            - symbol: BTC-GBP
+              name: Bitcoin
+            - symbol: ETH-GBP
+              name: Ether
+            - symbol: XRP-GBP
+              name: XRP
+            - symbol: ALGO-GBP
+              name: Algorand
 
